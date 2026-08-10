@@ -1,0 +1,68 @@
+# Template file for 'joplin-bin'
+pkgname=joplin-bin
+version=3.6.14
+revision=2
+archs="x86_64"
+short_desc="Privacy-focused note-taking app (binary build)"
+maintainer="Jacob Pedersen <jake@jpedmedia.com>"
+license="AGPL-3.0-or-later"
+homepage="https://joplinapp.org/"
+distfiles="https://github.com/laurent22/joplin/releases/download/v${version}/Joplin-${version}.AppImage"
+checksum=72d25f946bfbc8bedc0cbb73dd7d3f76f1f3464c35677663dcb94d565874c133
+
+nopie=yes
+nostrip=yes
+
+depends="alsa-lib dbus-glib desktop-file-utils hicolor-icon-theme libexif
+ libva-intel-driver nss libdbusmenu-gtk3"
+
+shlib_provides="libffmpeg.so libindicator.so.7 libdbusmenu-gtk.so.4"
+
+# Stop xbps-src from panicking about the .AppImage extension
+do_extract() {
+	:
+}
+
+do_install() {
+    # 1. Extraction
+    local _appimage="/host/sources/${pkgname}-${version}/Joplin-${version}.AppImage"
+    cp "$_appimage" .
+    chmod +x "Joplin-${version}.AppImage"
+    ./Joplin-${version}.AppImage --appimage-extract > /dev/null
+    rm "Joplin-${version}.AppImage"
+
+    # 2. Install core files
+    vmkdir usr/lib/joplin
+    vcopy "squashfs-root/*" usr/lib/joplin
+
+    # 3. Create binary symlink
+    vmkdir usr/bin
+    ln -sf /usr/lib/joplin/joplin "${DESTDIR}/usr/bin/joplin"
+
+    # 4. Wipe out ALL original desktop files to prevent ghosting
+    find "${DESTDIR}" -name "*.desktop" -delete
+
+    # 5. Manually create a perfect Desktop Entry
+    vmkdir usr/share/applications
+    cat > "${DESTDIR}/usr/share/applications/joplin.desktop" <<-_EOF
+[Desktop Entry]
+Name=Joplin
+Exec=/usr/bin/joplin --no-sandbox %U
+Terminal=false
+Type=Application
+Icon=joplin
+StartupWMClass=@joplin/app-desktop
+MimeType=x-scheme-handler/joplin;
+Comment=Joplin for Desktop
+Categories=Office;
+_EOF
+
+    # 6. Install Icons
+    for size in 16 32 48 64 128 256 512; do
+        local _iconpath="squashfs-root/usr/share/icons/hicolor/${size}x${size}/apps/joplin.png"
+        if [ -f "$_iconpath" ]; then
+            vmkdir "usr/share/icons/hicolor/${size}x${size}/apps"
+            vcopy "$_iconpath" "usr/share/icons/hicolor/${size}x${size}/apps"
+        fi
+    done
+}

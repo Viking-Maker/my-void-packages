@@ -1,0 +1,52 @@
+# Template file for 'librewolf-bin'
+pkgname=librewolf-bin
+version=151.0.3.1
+revision=1
+archs="x86_64 aarch64"
+short_desc="Community-maintained fork of Firefox focused on privacy and security (Binary)"
+maintainer="Jacob Pedersen <jake@jpedmedia.com>"
+license="MPL-2.0"
+homepage="https://librewolf.net/"
+
+_realver="${version%.*}-${version##*.}"
+_base_url="https://codeberg.org/api/packages/librewolf/generic/librewolf/${_realver}"
+
+case "$XBPS_TARGET_MACHINE" in
+    x86_64)  distfiles="${_base_url}/librewolf-${_realver}-linux-x86_64-package.tar.xz" ;;
+    aarch64) distfiles="${_base_url}/librewolf-${_realver}-linux-arm64-package.tar.xz" ;;
+esac
+
+checksum="ee35141608d98a723203392529d7561ca71481243fe5edc504f08f41ea8b0c0e"
+nostrip=yes
+
+do_install() {
+    # 1. Create target directories
+    vmkdir usr/lib/librewolf
+
+    # 2. Extract browser payload cleanly to target lib directory
+    vcopy "*" usr/lib/librewolf
+
+    # 3. Generate the desktop entry dynamically inside DESTDIR
+    vmkdir usr/share/applications
+    cat <<_EOF > "${DESTDIR}/usr/share/applications/librewolf.desktop"
+[Desktop Entry]
+Name=LibreWolf
+Comment=Web Browser focused on privacy, security, and freedom
+Exec=/usr/bin/librewolf %u
+Terminal=false
+Type=Application
+Icon=librewolf
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/vnd.mozilla.xul+xml;application/rss+xml;application/rdf+xml;x-scheme-handler/http;x-scheme-handler/https;
+StartupWMClass=LibreWolf
+_EOF
+
+    # 4. Safely install the internal icon out of the working source path
+    if [ -f "browser/chrome/icons/default/default128.png" ]; then
+        vinstall browser/chrome/icons/default/default128.png 644 usr/share/pixmaps librewolf.png
+    fi
+
+    # 5. Link the executable into global user PATH
+    vmkdir usr/bin
+    ln -sf /usr/lib/librewolf/librewolf "${DESTDIR}/usr/bin/librewolf"
+}

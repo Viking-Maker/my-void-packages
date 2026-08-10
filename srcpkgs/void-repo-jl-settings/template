@@ -1,0 +1,16 @@
+# Template file for 'void-repo-jl-settings'
+pkgname=void-repo-jl-settings
+version=1.0
+revision=1
+short_desc="Repository settings and signing keys for void-repo.jl.dev"
+maintainer="Jake jake@jpedmedia.com"
+license="Public Domain"
+homepage="https://void-repo.jl.dev"
+
+do_install() {
+    # 1. Install the Public Key directly into the trusted keys folder
+    vinstall ${FILESDIR}/void-repo-jl.pub 644 var/db/xbps/keys
+    
+    # 2. Install the Repository Config so XBPS knows where to look
+    vinstall ${FILESDIR}/void-repo-jl.conf 644 etc/xbps.d
+}

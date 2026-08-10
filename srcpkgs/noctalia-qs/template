@@ -1,0 +1,52 @@
+# Template file for 'noctalia-qs'
+pkgname=noctalia-qs
+version=0.0.12
+revision=1
+build_style=cmake
+archs="x86_64"
+configure_args="
+ -DCMAKE_BUILD_TYPE=Release
+ -DINSTALL_QML_PREFIX=lib/qt6/qml
+ -DHYPRLAND=ON
+ -DCRASH_REPORTER=OFF"
+hostmakedepends="pkg-config qt6-base-devel qt6-declarative-devel qt6-shadertools wayland-protocols cli11"
+makedepends="qt6-base-devel qt6-base-private-devel qt6-declarative-devel
+ qt6-declarative-private-devel qt6-wayland-devel qt6-shadertools-devel
+ libdisplay-info-devel libseat-devel vulkan-loader-devel libdrm-devel
+ pam-devel jemalloc-devel polkit-devel libxcb-devel pipewire-devel
+ wayland-devel zlib-devel"
+depends="hicolor-icon-theme jemalloc mesa"
+short_desc="Custom fork of Quickshell powering Noctalia Shell"
+maintainer="Jake jake@jpedmedia.com"
+license="LGPL-3.0-only"
+homepage="https://github.com/noctalia-dev/noctalia-qs"
+distfiles="https://github.com/noctalia-dev/noctalia-qs/archive/refs/tags/v${version}.tar.gz"
+checksum=5de37541537307d141618aa0d782d3c34e42a6ad21c73533cce80c0e71ee9693
+conflicts="quickshell"
+
+
+post_install() {
+	# This finds the first file starting with LICENSE and assigns it to a variable
+	for f in LICENSE*; do
+		if [ -f "$f" ]; then
+			vlicense "$f"
+			break
+		fi
+	done
+}
+
+noctalia-qs_package() {
+	if [ -f "${wrksrc}/build/qs" ]; then
+		vbin "${wrksrc}/build/qs"
+	elif [ -f "${wrksrc}/qs" ]; then
+		vbin "${wrksrc}/qs"
+	fi
+
+	# Repeat the license check for the subpackage
+	for f in LICENSE*; do
+		if [ -f "$f" ]; then
+			vlicense "$f"
+			break
+		fi
+	done
+}
