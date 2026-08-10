@@ -1,0 +1,15 @@
+
+# Template file for 'pass-secret-service'
+pkgname=pass-secret-service
+version=0.7.0
+revision=1
+build_style=cargo
+hostmakedepends="cargo"
+makedepends="dbus-devel"
+depends="pass"
+short_desc="Implementation of org.freedesktop.secrets using pass"
+maintainer="Your Name <youremail@domain.com>"
+license="GPL-3.0-only"
+homepage="https://github.com/grimsteel/pass-secret-service"
+distfiles="https://github.com/grimsteel/pass-secret-service/archive/refs/tags/v${version}.tar.gz"
+checksum=2647721628c48eee4cdf472d35ea341397c5720f7b5426a16ae9466e9993ab23

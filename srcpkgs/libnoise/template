@@ -1,0 +1,52 @@
+# Template file for 'libnoise'
+pkgname=libnoise
+version=1.0.0
+revision=2
+build_style=cmake
+short_desc="Portable, open-source, coherent noise-generating library for C++"
+maintainer="Your Name <your.email@example.com>"
+license="LGPL-2.1-or-later"
+homepage="http://libnoise.sourceforge.net/"
+distfiles="https://downloads.sourceforge.net/project/libnoise/libnoise%20sources/${version}/libnoisesrc-${version}.zip"
+checksum=34ed402f43f30ce5e39812642c9533c11082cd2bc092341c65160f5c743be95b
+
+post_extract() {
+	# Original sourceforge zip places files inside 'noise/'
+	mv noise/* .
+	rmdir noise
+
+	# Generate a clean CMakeLists.txt using dynamic globbing
+	cat <<'EOF' > CMakeLists.txt
+cmake_minimum_required(VERSION 3.0)
+project(noise)
+
+# Automatically find all C++ source files
+file(GLOB NOISE_SOURCES
+    src/*.cpp
+    src/module/*.cpp
+    src/model/*.cpp
+)
+
+add_library(noise SHARED ${NOISE_SOURCES})
+set_target_properties(noise PROPERTIES VERSION 1.0.0 SOVERSION 1)
+
+# Automatically find header files
+file(GLOB NOISE_HEADERS src/*.h)
+file(GLOB MODULE_HEADERS src/module/*.h)
+file(GLOB MODEL_HEADERS src/model/*.h)
+
+install(TARGETS noise DESTINATION lib)
+install(FILES ${NOISE_HEADERS} DESTINATION include/noise)
+install(FILES ${MODULE_HEADERS} DESTINATION include/noise/module)
+install(FILES ${MODEL_HEADERS} DESTINATION include/noise/model)
+EOF
+}
+
+libnoise-devel_package() {
+	short_desc="${short_desc} - development files"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove "usr/lib/*.so"
+	}
+}

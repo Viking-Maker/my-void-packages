@@ -1,0 +1,17 @@
+# Template file for 'television'
+pkgname=television
+version=0.15.9
+revision=1
+build_style=cargo
+
+hostmakedepends="pkg-config"
+makedepends="oniguruma-devel"
+
+short_desc="Lightweight, fast terminal-based text editor with LSP support"
+maintainer="Viking Maker <your.email@example.com>"
+license="GPL-2.0-only"
+homepage="https://github.com/alexpasmantier/television"
+
+distfiles="https://github.com/alexpasmantier/television/archive/refs/tags/${version}.tar.gz"
+
+checksum=5f46cbe7b14e1d6e3958f436b1d6ed8af86e9914d7d2aee5a9379e8e1772072d
