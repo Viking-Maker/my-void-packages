@@ -2,8 +2,8 @@
 pkgname=noctalia-qs
 version=0.0.12
 revision=1
-build_style=cmake
 archs="x86_64"
+build_style=cmake
 configure_args="
  -DCMAKE_BUILD_TYPE=Release
  -DINSTALL_QML_PREFIX=lib/qt6/qml
@@ -17,7 +17,7 @@ makedepends="qt6-base-devel qt6-base-private-devel qt6-declarative-devel
  wayland-devel zlib-devel"
 depends="hicolor-icon-theme jemalloc mesa"
 short_desc="Custom fork of Quickshell powering Noctalia Shell"
-maintainer="Jake jake@jpedmedia.com"
+maintainer="Viking Maker <vikingmaker@outlook.com>"
 license="LGPL-3.0-only"
 homepage="https://github.com/noctalia-dev/noctalia-qs"
 distfiles="https://github.com/noctalia-dev/noctalia-qs/archive/refs/tags/v${version}.tar.gz"

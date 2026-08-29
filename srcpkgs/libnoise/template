@@ -4,10 +4,10 @@ version=1.0.0
 revision=2
 build_style=cmake
 short_desc="Portable, open-source, coherent noise-generating library for C++"
-maintainer="Your Name <your.email@example.com>"
+maintainer="Viking Maker <vikingmaker@outlook.com>"
 license="LGPL-2.1-or-later"
 homepage="http://libnoise.sourceforge.net/"
-distfiles="https://downloads.sourceforge.net/project/libnoise/libnoise%20sources/${version}/libnoisesrc-${version}.zip"
+distfiles="${SOURCEFORGE_SITE}/libnoise/libnoise%20sources/${version}/libnoisesrc-${version}.zip"
 checksum=34ed402f43f30ce5e39812642c9533c11082cd2bc092341c65160f5c743be95b
 
 post_extract() {

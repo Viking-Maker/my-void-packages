@@ -1,0 +1,28 @@
+# Template file for 'fresh-editor'
+pkgname=fresh-editor
+version=0.4.10
+revision=1
+build_style=cargo
+hostmakedepends="clang21-devel pkg-config"
+makedepends="oniguruma-devel"
+short_desc="Fast terminal-based text editor with LSP support and TypeScript plugins"
+maintainer="Viking Maker <vikingmaker@outlook.com>"
+license="GPL-2.0-only"
+homepage="https://sinelaw.github.io/fresh/"
+distfiles="https://github.com/sinelaw/fresh/archive/refs/tags/v${version}.tar.gz"
+checksum=a315a38f0598554998e7b256d4ef997d158592532d43ca52328c8dc8e177d65f
+
+# The upstream test suite needs a live PTY and long-running e2e harness
+# (tests/harness_test.rs, tests/e2e/), which does not work under the
+# xbps-src chroot; skip it like the official distro packages do.
+make_check=no
+
+# fresh is a cargo workspace; install only the editor binary.
+make_install_args="--path crates/fresh-editor"
+
+post_install() {
+	# Record how fresh was installed so its built-in updater treats this
+	# copy as package-managed and never self-updates the binary.
+	sh scripts/write-install-receipt.sh void \
+		"${DESTDIR}/usr/share/fresh-editor/install-receipt.toml"
+}

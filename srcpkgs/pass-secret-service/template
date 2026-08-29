@@ -1,15 +1,14 @@
-
 # Template file for 'pass-secret-service'
 pkgname=pass-secret-service
-version=0.7.0
+version=0.7.1
 revision=1
 build_style=cargo
 hostmakedepends="cargo"
 makedepends="dbus-devel"
 depends="pass"
 short_desc="Implementation of org.freedesktop.secrets using pass"
-maintainer="Your Name <youremail@domain.com>"
+maintainer="Viking Maker <vikingmaker@outlook.com>"
 license="GPL-3.0-only"
 homepage="https://github.com/grimsteel/pass-secret-service"
 distfiles="https://github.com/grimsteel/pass-secret-service/archive/refs/tags/v${version}.tar.gz"
-checksum=2647721628c48eee4cdf472d35ea341397c5720f7b5426a16ae9466e9993ab23
+checksum=59cb7013edba81ac209c5ab077fa39bb48f3efa0a5ee8594a5b82a9858e2d9c5

@@ -1,6 +1,6 @@
 # Template file for 'OrcaSlicer'
 pkgname=OrcaSlicer
-version=2.4.0
+version=2.4.2
 revision=1
 build_style=cmake
 build_helper="cmake-wxWidgets-gtk3"
@@ -29,13 +29,13 @@ makedepends="glew-devel gtk+3-devel libmspack-devel libsecret-devel libspnav-dev
 
 depends="file wget"
 short_desc="G-code generator for 3D printers"
-maintainer="Your Name <your.email@example.com>"
+maintainer="Viking Maker <vikingmaker@outlook.com>"
 license="AGPL-3.0-only"
 homepage="https://www.orcaslicer.com/"
 distfiles="https://github.com/OrcaSlicer/OrcaSlicer/archive/refs/tags/v${version}.tar.gz
  https://github.com/CGAL/cgal/releases/download/v5.6.1/CGAL-5.6.1.tar.xz"
 
-checksum="e7a05f4e8222e22d470298897e318d123ba0abd99e363d61469d1ce1bfc0dff5
+checksum="d97244baf15eb9377aa86714cb042d537ff3b1db13b7c2657cf865b820701cf0
  cdb15e7ee31e0663589d3107a79988a37b7b1719df3d24f2058545d1bcdd5837"
 
 skip_extraction="CGAL-5.6.1.tar.xz"

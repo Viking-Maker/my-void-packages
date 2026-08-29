@@ -1,10 +1,10 @@
 # Template file for 'librewolf-bin'
 pkgname=librewolf-bin
-version=151.0.3.1
+version=153.0.4.1
 revision=1
 archs="x86_64 aarch64"
-short_desc="Community-maintained fork of Firefox focused on privacy and security (Binary)"
-maintainer="Jacob Pedersen <jake@jpedmedia.com>"
+short_desc="Privacy-focused Firefox fork (binary)"
+maintainer="Viking Maker <vikingmaker@outlook.com>"
 license="MPL-2.0"
 homepage="https://librewolf.net/"
 
@@ -16,7 +16,7 @@ case "$XBPS_TARGET_MACHINE" in
     aarch64) distfiles="${_base_url}/librewolf-${_realver}-linux-arm64-package.tar.xz" ;;
 esac
 
-checksum="ee35141608d98a723203392529d7561ca71481243fe5edc504f08f41ea8b0c0e"
+checksum=28fbf8e3e175a1fabb2f625ae9733802d22eb480927c9cfa47b5ef92f947e58d
 nostrip=yes
 
 do_install() {

@@ -8,7 +8,7 @@ hostmakedepends="pkg-config"
 makedepends="oniguruma-devel"
 
 short_desc="Lightweight, fast terminal-based text editor with LSP support"
-maintainer="Viking Maker <your.email@example.com>"
+maintainer="Viking Maker <vikingmaker@outlook.com>"
 license="GPL-2.0-only"
 homepage="https://github.com/alexpasmantier/television"
 

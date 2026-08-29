@@ -1,16 +1,16 @@
 # Template file for 'brave-browser'
 pkgname=brave-browser
-version=1.91.168
+version=1.93.136
 revision=1
 archs="x86_64"
 hostmakedepends="rpmextract"
 short_desc="Web browser"
-maintainer="jacob Pedersen <jake@jpedmedia.com>"
+maintainer="Viking Maker <vikingmaker@outlook.com>"
 license="GPL-3.0-or-later"
 homepage="https://www.brave.com/"
 #changelog="https://www.brave.com/latest/"
 distfiles="https://github.com/brave/brave-browser/releases/download/v${version}/brave-browser-${version}-1.x86_64.rpm"
-checksum=b8e0229d1e74c1e8e519f920e89ef3819feb9626d97fe10f33ee26a95e9c3c57
+checksum=4c36edca55e57cf6c963ad4b294cf221a3d5980623136ad041c35b7adfd3f2f4
 
 do_install() {
 	rm -f etc/cron.daily/brave-browser
@@ -19,4 +19,3 @@ do_install() {
 
 	vmkdir usr/share/pixmaps
 }
-
