@@ -1,0 +1,30 @@
+# Template file for 'lightpanda'
+pkgname=lightpanda
+version=0.4.0
+revision=1
+
+# Pre-built binary from official GitHub releases
+# Verified checksums from the 0.4.0 release assets
+distfiles="https://github.com/lightpanda-io/browser/releases/download/${version}/lightpanda-x86_64-linux
+ https://raw.githubusercontent.com/lightpanda-io/browser/main/LICENSE"
+checksum="bfcf9bd7e80939b87232aa114a49d8f397f51af0c2632d9fc58d4a6d4386624f
+ 8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef"
+
+archs="x86_64*"
+# aarch64 is also available from upstream nightly, but stable releases
+# don't seem to have aarch64-linux stable binary yet
+# TODO: check aarch64 support once upstream releases it
+build_style=fetch
+# Pre-built binary is not PIE-compiled
+nopie=yes
+
+short_desc="Headless browser built for AI agents and automation"
+maintainer="Viking Maker <vikingmaker@outlook.com>"
+license="AGPL-3.0-or-later"
+homepage="https://lightpanda.io"
+changelog="https://github.com/lightpanda-io/browser/releases"
+
+do_install() {
+	vbin lightpanda-x86_64-linux lightpanda
+	vlicense LICENSE
+}
