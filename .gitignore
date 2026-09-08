@@ -14,12 +14,22 @@
 !/COPYING
 !/Manual.md
 !/README.md
+!/README.BINREPO.md
+!/TEMPLATES.md
+!/CUSTOM_PACKAGES.md
+!/install-binrepo.sh
+!/publish-binpkgs.sh
 !/common
 !/etc
 !/srcpkgs
 !/xbps-src
+
+# Large binary packages should not be committed to repo
+# Use GitHub Releases instead: https://github.com/Viking-Maker/my-void-packages/releases
+hostdir/binpkgs/
+hostdir/ccache/
+hostdir/sources/
+masterdir-x86_64/
+binpkgs/
+var/
 etc/conf
-etc/conf.*
-etc/virtual
-etc/xbps.d/custom
-etc/repo-keys
