@@ -5,24 +5,18 @@ revision=1
 
 build_style=cmake
 hostmakedepends="cmake"
+makedepends="scdoc"
 
 # Disable systemd user service; OpenRC service file is not built by default
-configure_args="-DSYSTEMD_USER_SERVICE=OFF -DSYSTEMD_SYSTEM_SERVICE=OFF -DBUILD_DOCS=OFF"
+configure_args="-DSYSTEMD_USER_SERVICE=OFF -DSYSTEMD_SYSTEM_SERVICE=OFF"
 
 short_desc="Generic command-line automation tool for Linux (no X required)"
 maintainer="Viking Maker <vikingmaker@outlook.com>"
 license="AGPL-3.0-or-later"
 homepage="https://github.com/ReimuNotMoe/ydotool"
 changelog="https://github.com/ReimuNotMoe/ydotool/releases"
-distfiles="https://github.com/ReimuNotMoe/ydotool/archive/refs/tags/v${version}.tar.gz
- https://github.com/ReimuNotMoe/ydotool/raw/v${version}/LICENSE"
-checksum="ba075a43aa6ead51940e892ecffa4d0b8b40c241e4e2bc4bd9bd26b61fde23bd
- 0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0"
-
-do_install() {
-	vbin ydotool
-	vbin ydotoold
-}
+distfiles="https://github.com/ReimuNotMoe/ydotool/archive/refs/tags/v${version}.tar.gz"
+checksum=ba075a43aa6ead51940e892ecffa4d0b8b40c241e4e2bc4bd9bd26b61fde23bd
 
 post_install() {
 	vlicense LICENSE
