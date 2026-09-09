@@ -1,41 +1,45 @@
 # Template file for 'OrcaSlicer-bin'
 # Pre-built binary version: repacks upstream AppImage release
 # Compare with: srcpkgs/OrcaSlicer (source template)
+
+# The AppImage bundles all required libraries (Qt, OpenGL, etc.)
+# and runs on Void Linux out-of-the-box.
+
 pkgname=OrcaSlicer-bin
 version=2.4.2
 revision=1
 
 archs="x86_64"
-build_style=binary
-_nopie=yes
+build_style=fetch
+nopie=yes
 
-short_desc="G-code generator for 3D printers (pre-built binary)"
-maintainer="Viking Maker <vikingmaker@outlook.com>"
-license="AGPL-3.0-only"
-homepage="https://www.orcaslicer.com/"
+short_desc="G-code generator for 3D printers (pre-built AppImage)"
+maintainer="Viking-Maker <vikingmaker@outlook.com>"
+license="AGPL-3.0-or-later"
+homepage="https://github.com/OrcaSlicer/OrcaSlicer"
 changelog="https://github.com/OrcaSlicer/OrcaSlicer/releases"
 
-# Upstream AppImage for x86_64 Linux (Ubuntu 24.04 base)
+# Upstream AppImage release (Ubuntu 24.04 build tested on Void Linux)
 distfiles="https://github.com/OrcaSlicer/OrcaSlicer/releases/download/v${version}/OrcaSlicer_Linux_AppImage_Ubuntu2404_V${version}.AppImage"
-checksum=d12fb8c8eac1aecd2dfb6377acd48f994f8fa439ed5292fa532dd82880f029fd
+checksum="d12fb8c8eac1aecd2dfb6377acd48f994f8fa439ed5292fa532dd82880f029fd"
 
-# AppImage bundles its own libraries; strip is not needed
-nostrip=yes
-keep_libarchive=yes
+post_extract() {
+	# Rename AppImage for predictable filename
+	mv ${wrksrc}/OrcaSlicer_Linux_AppImage_Ubuntu2404_V${version}.AppImage ${wrksrc}/OrcaSlicer.AppImage
+}
 
 do_install() {
-	# vextract handles AppImage extraction, producing squashfs-root/
-	vextract "OrcaSlicer_Linux_AppImage_Ubuntu2404_V${version}.AppImage"
+	# Install the AppImage binary to usr/bin/orcaslicer
+	# vbin installs to usr/bin by default
+	vbin OrcaSlicer.AppImage orcaslicer
 
-	# Copy extracted AppDir contents to /usr/lib/orcaslicer
-	vmkdir usr/lib/orcaslicer
-	vcopy "squashfs-root" "${DESTDIR}/usr/lib/orcaslicer"
+	# Install the desktop entry
+	vinstall ${FILESDIR}/OrcaSlicer.desktop 644 usr/share/applications
+
+	# Install license
+	vlicense ${FILESDIR}/LICENSE
 }
 
 post_install() {
-	# Create wrapper script in /usr/bin
-	vinstall "${FILESDIR}/orca-slicer-wrapper" 755 usr/bin orcaslicer
-
-	# Install license from extracted AppImage
-	vlicense "squashfs-root/LICENSE"
+	:
 }

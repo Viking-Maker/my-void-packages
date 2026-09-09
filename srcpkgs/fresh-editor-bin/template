@@ -7,31 +7,40 @@ revision=1
 
 archs="x86_64"
 build_style=fetch
-make_install_args="--path crates/fresh-editor"
-keep_libarchive=yes
-short_desc="Fast terminal-based text editor with LSP support (pre-built binary)"
-maintainer="Viking-Maker"
+nopie=yes
+create_wrksrc=required
+
+short_desc="Fast terminal-based text editor with fuzzy finding and LSP"
+maintainer="Viking-Maker <vikingmaker@outlook.com>"
 license="GPL-2.0-only"
 homepage="https://github.com/sinelaw/fresh"
-distfiles="https://github.com/sinelaw/fresh/releases/download/v0.4.10/fresh-editor-x86_64-unknown-linux-gnu.tar.xz https://raw.githubusercontent.com/sinelaw/fresh/refs/heads/v0.4.10/LICENSE"
-checksum="4234d3d35b03f406dd853fa88058aa60aaa5555e27af5e33607076e60d763cf3 aaf135472f81c5b4a0dca9367e5bb5e9750032b5bebe5442b36e4c0a47430df3"
+changelog="https://github.com/sinelaw/fresh/releases"
 
-post_extract() {
-	# The upstream tarball contains the files in a nested directory
-	mv ${_src}/fresh-editor-x86_64-unknown-linux-gnu/* ${_src}/
-	rmdir ${_src}/fresh-editor-x86_64-unknown-linux-gnu || true
-}
+# Upstream provides pre-built binary tarballs:
+# https://github.com/sinelaw/fresh/releases/tag/v0.4.10
+distfiles="https://github.com/sinelaw/fresh/releases/download/v${version}/fresh-editor-x86_64-unknown-linux-gnu.tar.xz
+ https://raw.githubusercontent.com/sinelaw/fresh/refs/heads/v${version}/LICENSE"
+checksum="4234d3d35b03f406dd853fa88058aa60aaa5555e27af5e33607076e60d763cf3
+ aaf135472f81c5b4a0dca9367e5bb5e9750032b5bebe5442b36e4c0a47430df3"
 
 do_install() {
-	vbin ${_src}/fresh
-	vman ${_src}/man/fresh.1
-	vinstall ${FILESDIR}/fresh-editor.desktop 644 usr/share/applications
+	# Install main binary
+	vbin fresh
+
+	# Install man page
+	vman man/fresh.1
+
+	# Install desktop entry
+	vinstall fresh.desktop 644 usr/share/applications
+
+	# Install icon (256x256)
 	vmkdir usr/share/pixmaps
-	vinstall ${FILESDIR}/icons/fresh.svg 644 usr/share/pixmaps
+	vinstall icons/256x256/apps/fresh.png 644 usr/share/pixmaps/fresh-editor.png
+
+	# Install license (from the separate LICENSE distfile)
 	vlicense LICENSE
-	vinstall ${FILESDIR}/install-receipt.toml 644 etc/fresh/
 }
 
 post_install() {
-	xbsp pkg_record fresh-editor-bin
+	:
 }

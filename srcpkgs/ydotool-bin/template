@@ -1,0 +1,55 @@
+# Template file for 'ydotool-bin'
+# Binary version of ydotool: repackages pre-built binaries from GitHub Releases
+# Since ydotool does not distribute official pre-built binaries, these binaries
+# are built from source on agent-node and uploaded as a GitHub Release asset.
+# See: publish-ydotool-bin.sh for the publishing workflow.
+# Compare with: srcpkgs/ydotool (source template)
+
+pkgname=ydotool-bin
+version=1.0.4
+revision=1
+
+# Binary is not PIE-compiled
+nopie=yes
+
+# Only x86_64 is currently available (built on agent-node)
+archs="x86_64"
+build_style=fetch
+
+short_desc="Automated input simulation tool (pre-built binary)"
+maintainer="Viking-Maker <vikingmaker@outlook.com>"
+license="AGPL-3.0-or-later"
+homepage="https://github.com/ReimuNotMoe/ydotool"
+changelog="https://github.com/ReimuNotMoe/ydotool/releases"
+
+# Binary release hosted on Viking-Maker/my-void-packages GitHub Releases
+# Update checksum and tag when a new binary is published via publish-ydotool-bin.sh
+_distfile_tag=${version}-bin
+distfiles="https://github.com/Viking-Maker/my-void-packages/releases/download/v${version}-bin/ydotool-bin-${version}-x86_64.tar.xz"
+checksum="skip"
+
+post_extract() {
+	# Rename extracted directory for consistent path
+	mv ${wrksrc}/ydotool-bin-${version} ${wrksrc}/ydotool-bin-files
+}
+
+do_install() {
+	# Install binaries
+	vbin ydotool-bin-files/usr/bin/ydotool
+	vbin ydotool-bin-files/usr/bin/ydotoold
+
+	# Install man pages
+	vman ydotool-bin-files/usr/share/man/man1/ydotool.1
+	vman ydotool-bin-files/usr/share/man/man1/ydotoold.8
+
+	# Install systemd service
+	vmkdir usr/lib/systemd/system
+	vinstall ydotool-bin-files/usr/lib/systemd/system/ydotool.service 644 usr/lib/systemd/system
+
+	# Install license file
+	vlicense ydotool-bin-files/usr/share/licenses/ydotool/LICENSE
+}
+
+post_install() {
+	:
+}
