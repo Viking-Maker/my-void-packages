@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Fresh Editor
+Comment=Fast terminal-based text editor with LSP support
+Exec=fresh-editor
+Icon=fresh
+Terminal=true
+Type=Application
+Categories=Development;TextEditor;
+Keywords=editor;terminal;fuzzy;

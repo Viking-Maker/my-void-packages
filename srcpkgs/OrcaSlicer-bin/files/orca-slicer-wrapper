@@ -1,0 +1,9 @@
+#!/bin/sh
+# Wrapper for OrcaSlicer AppImage repack
+APPDIR="/usr/lib/orcaslicer"
+export LD_LIBRARY_PATH="${APPDIR}/lib:${APPDIR}/lib64:$LD_LIBRARY_PATH"
+export QT_PLUGIN_PATH="${APPDIR}/lib/qt6/plugins:${APPDIR}/lib/qt5/plugins:$QT_PLUGIN_PATH"
+export QML2_IMPORT_PATH="${APPDIR}/lib/qml:${APPDIR}/qml:$QML2_IMPORT_PATH"
+export XDG_DATA_DIRS="${APPDIR}/share:${XDG_DATA_DIRS:-/usr/share}"
+export XDG_CONFIG_DIRS="${APPDIR}/etc/xdg:${XDG_CONFIG_DIRS:-/etc/xdg}"
+exec "${APPDIR}/bin/OrcaSlicer" "$@"

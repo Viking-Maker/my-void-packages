@@ -1,0 +1,41 @@
+# Template file for 'OrcaSlicer-bin'
+# Pre-built binary version: repacks upstream AppImage release
+# Compare with: srcpkgs/OrcaSlicer (source template)
+pkgname=OrcaSlicer-bin
+version=2.4.2
+revision=1
+
+archs="x86_64"
+build_style=binary
+_nopie=yes
+
+short_desc="G-code generator for 3D printers (pre-built binary)"
+maintainer="Viking Maker <vikingmaker@outlook.com>"
+license="AGPL-3.0-only"
+homepage="https://www.orcaslicer.com/"
+changelog="https://github.com/OrcaSlicer/OrcaSlicer/releases"
+
+# Upstream AppImage for x86_64 Linux (Ubuntu 24.04 base)
+distfiles="https://github.com/OrcaSlicer/OrcaSlicer/releases/download/v${version}/OrcaSlicer_Linux_AppImage_Ubuntu2404_V${version}.AppImage"
+checksum=d12fb8c8eac1aecd2dfb6377acd48f994f8fa439ed5292fa532dd82880f029fd
+
+# AppImage bundles its own libraries; strip is not needed
+nostrip=yes
+keep_libarchive=yes
+
+do_install() {
+	# vextract handles AppImage extraction, producing squashfs-root/
+	vextract "OrcaSlicer_Linux_AppImage_Ubuntu2404_V${version}.AppImage"
+
+	# Copy extracted AppDir contents to /usr/lib/orcaslicer
+	vmkdir usr/lib/orcaslicer
+	vcopy "squashfs-root" "${DESTDIR}/usr/lib/orcaslicer"
+}
+
+post_install() {
+	# Create wrapper script in /usr/bin
+	vinstall "${FILESDIR}/orca-slicer-wrapper" 755 usr/bin orcaslicer
+
+	# Install license from extracted AppImage
+	vlicense "squashfs-root/LICENSE"
+}
