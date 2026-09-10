@@ -14,7 +14,7 @@ makedepends="blas-devel lapack-devel openblas-devel libgomp-devel openfst-devel"
 short_desc="Offline speech recognition toolkit"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="Apache-2.0"
-homepage="https://alphacephei.com/vosk"
+homepage="https://github.com/alphacep/vosk-api"
 distfiles="https://github.com/alphacep/vosk-api/archive/v${version}/vosk-api-${version}.tar.gz
  https://github.com/alphacep/kaldi/archive/${_kaldi_commit}.tar.gz
  https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip"

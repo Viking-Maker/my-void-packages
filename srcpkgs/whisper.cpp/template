@@ -1,0 +1,17 @@
+# Template file for 'whisper.cpp'
+pkgname=whisper.cpp
+version=1.9.3
+revision=1
+build_style=cmake
+configure_args="-DBUILD_SHARED_LIBS=ON -DWHISPER_BUILD_TESTS=OFF -DWHISPER_BUILD_EXAMPLES=ON -DWHISPER_BUILD_SERVER=ON"
+hostmakedepends="cmake pkg-config"
+short_desc="High-performance speech recognition model based on OpenAI Whisper"
+maintainer="Void Maintainers <void@lists.voidlinux.org>"
+license="MIT"
+homepage="https://github.com/ggml-org/whisper.cpp"
+distfiles="https://github.com/ggml-org/whisper.cpp/archive/v${version}.tar.gz"
+checksum=1650f884effba487025143bd8facd2f9fb40a83b3737a732803c67a8d659d9c0
+
+post_install() {
+	vlicense LICENSE
+}
