@@ -23,33 +23,29 @@ homepage="https://github.com/ReimuNotMoe/ydotool"
 changelog="https://github.com/ReimuNotMoe/ydotool/releases"
 
 # Binary release hosted on Viking-Maker/my-void-packages GitHub Releases
-# Update checksum and tag when a new binary is published via publish-ydotool-bin.sh
-_distfile_tag=${version}-bin
 distfiles="https://github.com/Viking-Maker/my-void-packages/releases/download/v${version}-bin/ydotool-bin-${version}-x86_64.tar.xz"
-checksum="skip"
+checksum="ec26ea31fce9a5cf700c740edf0312c8e4355b91d1dcac2792c905463123d210"
 
 post_extract() {
-	# Rename extracted directory for consistent path
-	mv ${wrksrc}/ydotool-bin-${version} ${wrksrc}/ydotool-bin-files
+	# Extract the tarball contents into wrksrc
+	bsdtar xf ${wrksrc}/ydotool-bin-${version}-x86_64.tar.xz -C ${wrksrc}
+	# Remove the tarball to keep the wrksrc clean
+	rm -f ${wrksrc}/ydotool-bin-${version}-x86_64.tar.xz
 }
 
 do_install() {
 	# Install binaries
-	vbin ydotool-bin-files/usr/bin/ydotool
-	vbin ydotool-bin-files/usr/bin/ydotoold
+	vbin ydotool-bin-1.0.4/usr/bin/ydotool
+	vbin ydotool-bin-1.0.4/usr/bin/ydotoold
 
 	# Install man pages
-	vman ydotool-bin-files/usr/share/man/man1/ydotool.1
-	vman ydotool-bin-files/usr/share/man/man1/ydotoold.8
+	vman ydotool-bin-1.0.4/usr/share/man/man1/ydotool.1
+	vman ydotool-bin-1.0.4/usr/share/man/man8/ydotoold.8
 
 	# Install systemd service
 	vmkdir usr/lib/systemd/system
-	vinstall ydotool-bin-files/usr/lib/systemd/system/ydotool.service 644 usr/lib/systemd/system
+	vinstall ydotool-bin-1.0.4/usr/lib/systemd/user/ydotool.service 644 usr/lib/systemd/system
 
 	# Install license file
-	vlicense ydotool-bin-files/usr/share/licenses/ydotool/LICENSE
-}
-
-post_install() {
-	:
+	vlicense ydotool-bin-1.0.4/LICENSE
 }
