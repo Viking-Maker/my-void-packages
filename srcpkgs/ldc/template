@@ -1,6 +1,6 @@
 # Template file for 'ldc'
 pkgname=ldc
-version=1.39.0
+version=1.43.0
 revision=1
 build_style=cmake
 configure_args="
@@ -22,7 +22,7 @@ license="BSD-3-Clause, BSL-1.0"
 homepage="https://wiki.dlang.org/LDC"
 changelog="https://raw.githubusercontent.com/ldc-developers/ldc/master/CHANGELOG.md"
 distfiles="https://github.com/ldc-developers/ldc/releases/download/v${version}/ldc-${version}-src.tar.gz"
-checksum=839bac36f6073318e36f0b163767e03bdbd3f57d99256b97494ac439b59a4562
+checksum=d655aad0daf0ce9a17b2ffffb947bb79ec6968bc7fb88bc918316dbe78c616e7
 nopie=yes
 nocross="dmd compilation fails on cross"
 # tests timeout on musl; also require unpackaged python3-lit
