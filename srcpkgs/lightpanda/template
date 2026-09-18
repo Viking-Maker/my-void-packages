@@ -5,9 +5,8 @@ revision=1
 
 # Pre-built binary from official GitHub releases
 # Verified checksums from the 0.4.0 release assets
-distfiles="https://github.com/lightpanda-io/browser/releases/download/${version}/lightpanda-x86_64-linux
- https://raw.githubusercontent.com/lightpanda-io/browser/main/LICENSE"
-checksum="bfcf9bd7e80939b87232aa114a49d8f397f51af0c2632d9fc58d4a6d4386624f
+distfiles="https://github.com/lightpanda-io/browser/releases/download/${version}/lightpanda-x86_64-linux https://raw.githubusercontent.com/lightpanda-io/browser/main/LICENSE"
+checksum="1d40801e72c0bc61b2cbd3f3562bcfc46de7b79e0568f33f686b64f2e587610a
  8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef"
 
 archs="x86_64*"
