@@ -11,17 +11,24 @@ build_style=fetch
 nopie=yes
 
 short_desc="Fuzzy finder for filtering filepaths (pre-built binary)"
-maintainer="Viking Maker <vikingmaker@outlook.com>"
+maintainer="Viking-Maker <vikingmaker@outlook.com>"
 license="MIT"
 homepage="https://github.com/natecraddock/zf"
 changelog="https://raw.githubusercontent.com/natecraddock/zf/refs/heads/main/CHANGELOG.md"
 
-# Pre-built binary tarball (single binary) from upstream GitHub releases
-# + LICENSE file from repo
+# Pre-built binary: single binary file inside .tar.xz
+# + LICENSE from repo separately
 distfiles="https://github.com/natecraddock/zf/releases/download/${version}/zf-${version}-x86_64-linux.tar.xz
  https://raw.githubusercontent.com/natecraddock/zf/refs/heads/main/LICENSE"
-checksum=7287c1255d5617069c0463cbcab910a1c39d1047a1a0baea9016e7d9d29c63be
- 0629000344ad0dc3c6e0e4c1b0c4a5cacf090e17d56e8bc5272705e3d35b7def
+checksum="7287c1255d5617069c0463cbcab910a1c39d1047a1a0baea9016e7d9d29c63be
+ 0629000344ad0dc3c6e0e4c1b0c4a5cacf090e17d56e8bc5272705e3d35b7def"
+
+# Post-extract: extract the tar after fetch's do_extract copied it to wrksrc
+post_extract() {
+	# wrksrc contains the tar.xz copied by fetch's do_extract
+	bsdtar xf zf-${version}-x86_64-linux.tar.xz -C "${wrksrc}"
+	rm -f zf-${version}-x86_64-linux.tar.xz
+}
 
 do_install() {
 	# Install the binary (upstream ships single binary file named "zf-0.10.2-x86_64-linux")

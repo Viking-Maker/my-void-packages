@@ -1,6 +1,6 @@
 # Template file for 'brave-origin-bin'
 pkgname=brave-origin-bin
-version=1.95.73
+version=1.95.102
 revision=1
 archs="x86_64"
 hostmakedepends="rpmextract"
@@ -9,8 +9,8 @@ maintainer="Viking Maker <vikingmaker@outlook.com>"
 license="GPL-3.0-or-later"
 homepage="https://www.brave.com/"
 #changelog="https://www.brave.com/latest/"
-distfiles="https://github.com/brave/brave-browser/releases/download/v${version}/brave-origin-nightly-${version}-1.x86_64.rpm"
-checksum=4ebc704b42154cabe721b94788bc951155e6a487c7369d7f8a474cc4e3d3eb78
+distfiles="https://github.com/brave/brave-browser/releases/download/v${version}/brave-origin-${version}-1.x86_64.rpm"
+checksum=c519fe694ca75d7d18b6e296566eaa18967d571c9f7b334b6a994e02ec1fc381
 
 do_install() {
 	rm -f etc/cron.daily/brave-origin-nightly

@@ -1,6 +1,6 @@
 # Template file for 'helium-browser-bin'
 pkgname=helium-browser-bin
-version=0.15.4.1
+version=0.17.1.1
 revision=1
 archs="x86_64 aarch64"
 short_desc="Private, fast, and honest web browser based on Chromium (binary build)"

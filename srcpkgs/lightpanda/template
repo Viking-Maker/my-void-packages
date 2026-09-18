@@ -1,6 +1,6 @@
 # Template file for 'lightpanda'
 pkgname=lightpanda
-version=0.4.0
+version=0.4.1
 revision=1
 
 # Pre-built binary from official GitHub releases
