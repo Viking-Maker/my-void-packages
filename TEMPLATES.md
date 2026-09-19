@@ -13,6 +13,8 @@ These templates build packages from official upstream source code:
 | `fresh-editor` | cargo | Fast terminal-based LSP editor with TypeScript plugins |
 | `zf` | zig-build | Commandline fuzzy finder for filtering filepaths |
 | `OrcaSlicer` | cmake | 3D slicer for Voron printers |
+| `noctalia` | meson | Wayland desktop shell (v5, C++23 monorepo) |
+| `noctalia-greeter` | meson | greetd login greeter matching Noctalia Shell |
 
 ### Building Source Templates
 
@@ -21,6 +23,8 @@ cd /home/hermes/void-packages
 ./xbps-src pkg fresh-editor
 ./xbps-src pkg zf
 ./xbps-src pkg OrcaSlicer
+./xbps-src pkg noctalia
+./xbps-src pkg noctalia-greeter
 ```
 
 ---
@@ -35,6 +39,8 @@ These templates repackage pre-built upstream binaries (no compilation):
 | `helium-browser-bin` | GitHub releases | default | Chromium-based browser |
 | `librewolf-bin` | Codeberg packages | default | Privacy-focused Firefox fork |
 | `brave-origin-bin` | GitHub releases | binary | Brave browser nightly (RPM) |
+| `noctalia-bin` | self-hosted GitHub release | fetch | Wayland shell, prebuilt from source (no upstream Void-compatible binary) |
+| `noctalia-greeter-bin` | self-hosted GitHub release | fetch | greetd greeter, prebuilt from source (no upstream binary at all) |
 
 ### Building Binary Templates
 
@@ -44,6 +50,20 @@ cd /home/hermes/void-packages
 ./xbps-src pkg helium-browser-bin
 ./xbps-src pkg librewolf-bin
 ./xbps-src pkg brave-origin-bin
+./xbps-src pkg noctalia-bin
+./xbps-src pkg noctalia-greeter-bin
+```
+
+### Self-hosted binary payloads
+
+When upstream ships no usable prebuilt binaries, the `-bin` template consumes a
+payload tarball built from the source package and hosted on this repo's GitHub
+Releases. Publish it with:
+
+```bash
+cd /home/hermes/my-void-packages
+./publish-bin-payload.sh <pkgname> <version> [revision]
+# then put the printed checksum into srcpkgs/<pkgname>-bin/template
 ```
 
 Binary templates are faster (no compilation) but you must wait for upstream releases.

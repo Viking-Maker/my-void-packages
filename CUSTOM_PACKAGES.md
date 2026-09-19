@@ -15,12 +15,16 @@ These are packages unique to your repository (not in the official void-packages)
 - `fresh-editor` - Fast terminal-based LSP editor (cargo build)
 - `zf` - Commandline fuzzy finder (zig build)
 - `OrcaSlicer` - 3D slicer for Voron printers (cmake build)
+- `noctalia` - Wayland desktop shell v5 (meson / C++23)
+- `noctalia-greeter` - greetd login greeter matching Noctalia Shell (meson / C++)
 
 ### Binary Templates (Pre-built Upstream Binaries)
 - `helium-browser-bin` - Chromium-based browser
 - `librewolf-bin` - Privacy-focused Firefox fork
 - `lightpanda` - Headless browser for AI agents
 - `brave-origin-bin` - Brave browser nightly
+- `noctalia-bin` - Wayland desktop shell, prebuilt from source (self-hosted)
+- `noctalia-greeter-bin` - greetd greeter, prebuilt from source (self-hosted)
 
 ## Binary Package Repository
 

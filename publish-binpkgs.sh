@@ -12,7 +12,7 @@ REPO_DIR="${BINPKGS_DIR}"
 SOURCE_DIR="/home/hermes/void-packages/hostdir/binpkgs"
 
 # Your custom template packages
-CUSTOM_PKGS="lightpanda fresh-editor zf helium-browser-bin librewolf-bin brave-origin-bin OrcaSlicer"
+CUSTOM_PKGS="lightpanda fresh-editor zf helium-browser-bin librewolf-bin brave-origin-bin OrcaSlicer noctalia noctalia-bin noctalia-greeter noctalia-greeter-bin"
 
 if [ ! -d "$REPO_DIR" ]; then
     echo "Creating binpkgs repo directory: $REPO_DIR"

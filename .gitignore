@@ -19,6 +19,7 @@
 !/CUSTOM_PACKAGES.md
 !/install-binrepo.sh
 !/publish-binpkgs.sh
+!/publish-bin-payload.sh
 !/common
 !/etc
 !/srcpkgs

@@ -1,0 +1,45 @@
+# Template file for 'noctalia-greeter-bin'
+# Binary version of noctalia-greeter: repackages a pre-built binary tree.
+#
+# Upstream (noctalia-dev/noctalia-greeter) publishes no binary release assets at
+# all (only git tags), and the Debian package at pkg.noctalia.dev/unstable needs
+# GLIBCXX 3.4.35 (Void ships 3.4.33). So the binaries are built from source on
+# agent-node and self-hosted as a GitHub Release asset.
+# See: publish-bin-payload.sh for the publishing workflow.
+# Compare with: srcpkgs/noctalia-greeter (source template)
+
+pkgname=noctalia-greeter-bin
+version=1.5.0
+revision=1
+archs="x86_64"
+build_style=fetch
+
+# Provides the same files as the source build
+conflicts="noctalia-greeter"
+
+short_desc="Login greeter for greetd matching Noctalia Shell (binary build)"
+maintainer="Viking Maker <vikingmaker@outlook.com>"
+license="MIT"
+homepage="https://github.com/noctalia-dev/noctalia-greeter"
+changelog="https://github.com/noctalia-dev/noctalia-greeter/releases"
+
+# Non-shlib runtime requirements; shared library deps are auto-detected.
+depends="greetd dbus"
+
+distfiles="https://github.com/Viking-Maker/my-void-packages/releases/download/v${version}-bin/noctalia-greeter-bin-${version}-x86_64.tar.xz"
+checksum=5b9f3b8cc97c43d517eb5c2c7053e047a727139f72a8c6a8bd196e4b7b6fe9b4
+
+post_extract() {
+	bsdtar xf noctalia-greeter-bin-${version}-x86_64.tar.xz -C "${wrksrc}"
+	rm -f noctalia-greeter-bin-${version}-x86_64.tar.xz
+}
+
+do_install() {
+	local _payload="${wrksrc}/noctalia-greeter-bin-${version}"
+
+	# Ship the exact staged tree produced by the source build (greeter,
+	# compositor, session wrapper, apply-appearance helper, assets, polkit
+	# action and the greetd setup scripts).
+	cp -a "${_payload}/usr" "${DESTDIR}/"
+	vlicense "${_payload}/usr/share/licenses/noctalia-greeter/LICENSE"
+}

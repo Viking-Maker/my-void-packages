@@ -1,0 +1,28 @@
+# Template file for 'noctalia-greeter'
+pkgname=noctalia-greeter
+version=1.5.0
+revision=1
+archs="x86_64 aarch64"
+build_style=meson
+hostmakedepends="pkg-config wayland-devel"
+makedepends="wayland-devel wayland-protocols libxkbcommon-devel freetype-devel
+	fontconfig-devel cairo-devel pango-devel harfbuzz-devel librsvg-devel
+	libxml2-devel glib-devel libglvnd-devel MesaLib-devel libepoxy-devel
+	tomlplusplus-devel json-c++ wlroots0.20-devel libinput-devel
+	libwebp-devel stb"
+depends="greetd dbus"
+short_desc="Minimal login greeter for greetd matching Noctalia Shell's look and feel"
+maintainer="Viking Maker <vikingmaker@outlook.com>"
+license="MIT"
+homepage="https://github.com/noctalia-dev/noctalia-greeter"
+changelog="https://github.com/noctalia-dev/noctalia-greeter/releases"
+distfiles="${homepage}/archive/refs/tags/v${version}.tar.gz"
+checksum=268bf4e4c5a5d915cd7d9f75d725959222474043b63c671092fe0fda0908d018
+
+# Upstream unit tests build extra test executables and expect a live session;
+# upstream PACKAGING.md recommends a plain distro build without them.
+make_check=no
+
+post_install() {
+	vlicense LICENSE
+}

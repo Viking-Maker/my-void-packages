@@ -1,0 +1,47 @@
+# Template file for 'noctalia-bin'
+# Binary version of noctalia: repackages a pre-built binary tree.
+#
+# Upstream (noctalia-dev/noctalia) publishes only source tarballs on GitHub
+# Releases, and the pre-built binaries it does publish elsewhere are not usable
+# on Void: the Debian packages at pkg.noctalia.dev/unstable need glibc >= 2.43
+# and GLIBCXX 3.4.36 (Void ships glibc 2.41 / GLIBCXX 3.4.33), the trixie build
+# links libcurl-gnutls.so.4 (CURL_GNUTLS_3 symbols) which Void does not ship,
+# and Arch's [extra] build needs glibc 2.44. So the binary is built from source
+# on agent-node and self-hosted as a GitHub Release asset.
+# See: publish-bin-payload.sh for the publishing workflow.
+# Compare with: srcpkgs/noctalia (source template)
+
+pkgname=noctalia-bin
+version=5.1.0
+revision=1
+archs="x86_64"
+build_style=fetch
+
+# Provides the same files as the source build
+conflicts="noctalia"
+
+short_desc="Sleek, customizable desktop shell crafted for Wayland (binary build)"
+maintainer="Viking Maker <vikingmaker@outlook.com>"
+license="MIT"
+homepage="https://github.com/noctalia-dev/noctalia"
+changelog="https://github.com/noctalia-dev/noctalia/releases"
+
+# Non-shlib runtime requirements; shared library deps are auto-detected.
+depends="git pipewire"
+
+distfiles="https://github.com/Viking-Maker/my-void-packages/releases/download/v${version}-bin/noctalia-bin-${version}-x86_64.tar.xz"
+checksum=c3a317fe1243ca669e3229a4716373fbb69e5549726c0731b03d11a0b474d303
+
+post_extract() {
+	bsdtar xf noctalia-bin-${version}-x86_64.tar.xz -C "${wrksrc}"
+	rm -f noctalia-bin-${version}-x86_64.tar.xz
+}
+
+do_install() {
+	local _payload="${wrksrc}/noctalia-bin-${version}"
+
+	# Ship the exact staged tree produced by the source build (binary, assets,
+	# desktop entry, icon, generated completions, example config).
+	cp -a "${_payload}/usr" "${DESTDIR}/"
+	vlicense "${_payload}/usr/share/licenses/noctalia/LICENSE"
+}
