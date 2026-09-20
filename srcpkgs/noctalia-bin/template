@@ -30,7 +30,7 @@ changelog="https://github.com/noctalia-dev/noctalia/releases"
 depends="git pipewire"
 
 distfiles="https://github.com/Viking-Maker/my-void-packages/releases/download/v${version}-bin/noctalia-bin-${version}-x86_64.tar.xz"
-checksum=c3a317fe1243ca669e3229a4716373fbb69e5549726c0731b03d11a0b474d303
+checksum=d38f8da7d22fc9d7dffd520ad024468d664a5078e0bd0ae37fd9aae00d5ac746
 
 post_extract() {
 	bsdtar xf noctalia-bin-${version}-x86_64.tar.xz -C "${wrksrc}"
