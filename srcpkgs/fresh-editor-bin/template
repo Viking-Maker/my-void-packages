@@ -1,6 +1,7 @@
 # Template file for 'fresh-editor-bin'
 # Pre-built binary version: repackages upstream GitHub release binary
 # Compare with: srcpkgs/fresh-editor (source template)
+
 pkgname=fresh-editor-bin
 version=0.5.1
 revision=2
@@ -18,17 +19,22 @@ changelog="https://github.com/sinelaw/fresh/releases"
 
 # Upstream provides pre-built binary tarballs:
 # https://github.com/sinelaw/fresh/releases/tag/v0.5.1
-distfiles="https://github.com/sinelaw/fresh/releases/download/v${version}/fresh-editor-x86_64-unknown-linux-gnu.tar.xz
- https://raw.githubusercontent.com/sinelaw/fresh/v${version}/LICENSE"
-checksum="dd162ec4b367860d4235b4919be9dc3184211b663b5a81af34455c4b1d2c6ec2
- aaf135472f81c5b4a0dca9367e5bb5e9750032b5bebe5442b36e4c0a47430df3"
+distfiles="https://github.com/sinelaw/fresh/releases/download/v${version}/fresh-editor-x86_64-unknown-linux-gnu.tar.xz"
+checksum="dd162ec4b367860d4235b4919be9dc3184211b663b5a81af34455c4b1d2c6ec2"
+
+post_extract() {
+	# build_style=fetch copies distfiles to wrksrc without extracting;
+	# extract the tarball and flatten the subdirectory
+	bsdtar xf "${wrksrc}/fresh-editor-x86_64-unknown-linux-gnu.tar.xz" -C "${wrksrc}"
+	if [ -d "${wrksrc}/fresh-editor-x86_64-unknown-linux-gnu" ]; then
+		mv "${wrksrc}/fresh-editor-x86_64-unknown-linux-gnu/"* "${wrksrc}/"
+		rmdir "${wrksrc}/fresh-editor-x86_64-unknown-linux-gnu"
+	fi
+}
 
 do_install() {
 	# Install main binary
 	vbin fresh
-
-	# Install man page
-	vman man/fresh.1
 
 	# Install desktop entry
 	vinstall fresh.desktop 644 usr/share/applications
@@ -37,7 +43,7 @@ do_install() {
 	vmkdir usr/share/pixmaps
 	vinstall icons/256x256/apps/fresh.png 644 usr/share/pixmaps/fresh-editor.png
 
-	# Install license (from the separate LICENSE distfile)
+	# Install license (bundled in upstream tarball)
 	vlicense LICENSE
 }
 
