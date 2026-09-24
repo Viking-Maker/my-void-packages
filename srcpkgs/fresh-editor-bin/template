@@ -2,8 +2,8 @@
 # Pre-built binary version: repackages upstream GitHub release binary
 # Compare with: srcpkgs/fresh-editor (source template)
 pkgname=fresh-editor-bin
-version=0.4.10
-revision=1
+version=0.5.1
+revision=2
 
 archs="x86_64"
 build_style=fetch
@@ -17,10 +17,10 @@ homepage="https://github.com/sinelaw/fresh"
 changelog="https://github.com/sinelaw/fresh/releases"
 
 # Upstream provides pre-built binary tarballs:
-# https://github.com/sinelaw/fresh/releases/tag/v0.4.10
+# https://github.com/sinelaw/fresh/releases/tag/v0.5.1
 distfiles="https://github.com/sinelaw/fresh/releases/download/v${version}/fresh-editor-x86_64-unknown-linux-gnu.tar.xz
- https://raw.githubusercontent.com/sinelaw/fresh/refs/heads/v${version}/LICENSE"
-checksum="4234d3d35b03f406dd853fa88058aa60aaa5555e27af5e33607076e60d763cf3
+ https://raw.githubusercontent.com/sinelaw/fresh/v${version}/LICENSE"
+checksum="dd162ec4b367860d4235b4919be9dc3184211b663b5a81af34455c4b1d2c6ec2
  aaf135472f81c5b4a0dca9367e5bb5e9750032b5bebe5442b36e4c0a47430df3"
 
 do_install() {
