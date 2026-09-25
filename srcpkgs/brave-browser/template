@@ -1,7 +1,7 @@
 # Template file for 'brave-browser'
 pkgname=brave-browser
-version=1.95.104
-revision=1
+version=1.96.59
+revision=2
 archs="x86_64"
 hostmakedepends="rpmextract"
 short_desc="Web browser"
@@ -10,7 +10,7 @@ license="GPL-3.0-or-later"
 homepage="https://www.brave.com/"
 #changelog="https://www.brave.com/latest/"
 distfiles="https://github.com/brave/brave-browser/releases/download/v${version}/brave-browser-${version}-1.x86_64.rpm"
-checksum=6844fd6170422852034f3fb7458119dcea3552da976497f5569daa6576d89f68
+checksum=81f3650f800542637a9e574de141402c6f4cc6c8383913e6e13dbf5669e44b9e
 
 do_install() {
 	rm -f etc/cron.daily/brave-browser
