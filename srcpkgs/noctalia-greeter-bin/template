@@ -9,7 +9,7 @@
 # Compare with: srcpkgs/noctalia-greeter (source template)
 
 pkgname=noctalia-greeter-bin
-version=1.5.0
+version=1.6.0
 revision=1
 archs="x86_64"
 build_style=fetch
@@ -27,7 +27,7 @@ changelog="https://github.com/noctalia-dev/noctalia-greeter/releases"
 depends="greetd dbus"
 
 distfiles="https://github.com/Viking-Maker/my-void-packages/releases/download/v${version}-bin/noctalia-greeter-bin-${version}-x86_64.tar.xz"
-checksum=5b9f3b8cc97c43d517eb5c2c7053e047a727139f72a8c6a8bd196e4b7b6fe9b4
+checksum=08b42da8d2f16fe00e553aadbf8bbac2ea5c959a402a22505347d229b74c369e
 
 post_extract() {
 	bsdtar xf noctalia-greeter-bin-${version}-x86_64.tar.xz -C "${wrksrc}"
