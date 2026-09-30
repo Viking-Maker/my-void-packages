@@ -1,6 +1,6 @@
 # Template file for 'vosk-api'
 pkgname=vosk-api
-version=0.3.45
+version=0.3.50
 revision=1
 create_wrksrc=yes
 build_wrksrc="vosk-api-${version}/src"
@@ -18,7 +18,7 @@ homepage="https://github.com/alphacep/vosk-api"
 distfiles="https://github.com/alphacep/vosk-api/archive/v${version}/vosk-api-${version}.tar.gz
  https://github.com/alphacep/kaldi/archive/${_kaldi_commit}.tar.gz
  https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip"
-checksum="930fb9cfa6c1b3035d3730feee7d670fb893caa0c71bd2159ee7623102674c26
+checksum="cc1067bcc599c9a2f5f38d4257caf2ac636ba244f7c965cee20293a41024f70f
  f47a996af546884a8e1cb961323b796c5c238c1bbeabaf657bb300b760e431b2
  30f26242c4eb449f948e42cb302dd7a686cb29a3423a8367f99ff41780942498"
 shlib_provides="libvosk.so"
