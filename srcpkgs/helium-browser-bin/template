@@ -1,7 +1,7 @@
 # Template file for 'helium-browser-bin'
 pkgname=helium-browser-bin
-version=0.18.1.1
-revision=2
+version=0.18.2.1
+revision=1
 archs="x86_64 aarch64"
 short_desc="Private, fast, and honest web browser based on Chromium (binary build)"
 maintainer="Viking Maker <vikingmaker@outlook.com>"
@@ -14,10 +14,15 @@ case "$XBPS_TARGET_MACHINE" in
 	aarch64) _helium_arch="arm64" ;;
 esac
 
-distfiles="https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-${_helium_arch}_linux.tar.xz"
+distfiles="https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-${_helium_arch}_linux.tar.xz
+ https://raw.githubusercontent.com/imputnet/helium-linux/${version}/LICENSE.ungoogled_chromium"
+# The license is a plain text file; fetch it without attempting extraction.
+skip_extraction="LICENSE.ungoogled_chromium"
 case "$XBPS_TARGET_MACHINE" in
-	x86_64) checksum="9f4d35239eea18b290846221874265ac2a8637adff954df69fdef77d6b15042c" ;;
-	aarch64) checksum="509ea4bfc617fff456f4584814894c6da71b3fe5b6d09637b08b4f3c76abec9e" ;;
+	x86_64) checksum="4493d756b98afbe3fd7d45c0ec215c23f5a0551fae715586fe6ce3b2298b155c
+ 9539b394e4179952698894bd62ef6566b6804ab0ff360dcf3a511cfaf7f78c4d" ;;
+	aarch64) checksum="d8456a8092075703e79ffe321e55cc979ee8b19f27709cf1658ec9c2d86b7f29
+ 9539b394e4179952698894bd62ef6566b6804ab0ff360dcf3a511cfaf7f78c4d" ;;
 esac
 
 do_install() {
@@ -26,4 +31,9 @@ do_install() {
 	vmkdir usr/bin
 	ln -sf /usr/lib/helium-browser/helium "${DESTDIR}/usr/bin/helium-browser"
 	vinstall "${FILESDIR}/helium-browser.desktop" 644 usr/share/applications
+
+	# BSD-3-Clause license text for the bundled ungoogled-chromium code.
+	# Not shipped inside the binary tarball, so install it from the fetched
+	# distfile (see skip_extraction above).
+	vlicense "${XBPS_SRCDISTDIR}/${pkgname}-${version}/LICENSE.ungoogled_chromium"
 }
