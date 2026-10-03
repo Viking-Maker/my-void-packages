@@ -12,7 +12,7 @@
 # Compare with: srcpkgs/noctalia (source template)
 
 pkgname=noctalia-bin
-version=5.2.0
+version=5.2.1
 revision=1
 archs="x86_64"
 build_style=fetch
@@ -30,7 +30,7 @@ changelog="https://github.com/noctalia-dev/noctalia/releases"
 depends="git pipewire"
 
 distfiles="https://github.com/Viking-Maker/my-void-packages/releases/download/v${version}-bin/noctalia-bin-${version}-x86_64.tar.xz"
-checksum=59f4b70c47675ce968b388b906bce29436e520693acea1d57650922e0a38aa24
+checksum=eb1bab5f201f5c7b6e3d0b0144109c7a946741f0530ea496d1ceae2cd3a8a795
 
 post_extract() {
 	bsdtar xf noctalia-bin-${version}-x86_64.tar.xz -C "${wrksrc}"

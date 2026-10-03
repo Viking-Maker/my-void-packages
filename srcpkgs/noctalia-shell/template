@@ -1,6 +1,6 @@
 # Template file for 'noctalia-shell'
 pkgname=noctalia-shell
-version=5.2.0
+version=5.2.1
 revision=1
 depends="noctalia-qs python3 python3-Pillow brightnessctl ImageMagick git"
 short_desc="Sleek and minimal desktop shell for Wayland"
@@ -8,7 +8,7 @@ maintainer="Viking Maker <vikingmaker@outlook.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/noctalia-dev/noctalia-shell"
 distfiles="$homepage/archive/v${version}.tar.gz"
-checksum=b1080bcb19c9ee7836153464d99021f34d1e3564f4bf4a26331a2af21234ddf8
+checksum=5418f6b759de96e56a4bbca809c5a4c60a8a9594bdf67ecb8c5a341f97c221d1
 
 do_install() {
 	# This creates the folder where the shell lives
