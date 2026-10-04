@@ -1,0 +1,43 @@
+# Template file for 'codex-cli'
+# OpenAI's Codex CLI — source build with cargo. Upstream (openai/codex) is a
+# Rust workspace; the 'codex' binary is produced by the codex-rs/cli crate.
+# A pre-built binary is packaged separately in srcpkgs/codex-cli-bin.
+#
+# NOTE: this workspace is large (100+ crates) and the Rust toolchain is not
+# bootstrapped in this chroot, so the prebuilt codex-cli-bin package is the
+# practical default on agent-node. To build from source:
+#   XBPS_MASTERDIR=/home/hermes/void-packages/masterdir-x86_64 \
+#     XBPS_HOSTDIR=/home/hermes/void-packages/hostdir ./xbps-src -j6 pkg codex-cli
+pkgname=codex-cli
+version=0.160.0
+revision=1
+archs="x86_64"
+build_style=cargo
+make_install_args="--path cli"
+hostmakedepends="cargo rustc pkg-config"
+depends="git"
+short_desc="OpenAI's Codex CLI coding agent (source build)"
+maintainer="Viking Maker <vikingmaker@outlook.com>"
+license="Apache-2.0"
+homepage="https://github.com/openai/codex"
+changelog="https://github.com/openai/codex/releases"
+
+distfiles="https://github.com/openai/codex/archive/refs/tags/rust-v${version}.tar.gz"
+checksum="e9ba182239bb984f1d24a57c8b3abb3da127e0a108e5f17d7a9038688cf4369c"
+
+# The tag archive extracts to codex-rust-v0.160.0/ and the cargo workspace
+# (and the 'codex' binary crate) lives in the codex-rs/ subdirectory; flatten
+# it so cargo finds Cargo.toml at the wrksrc root.
+post_extract() {
+	cp -a codex-rs/. .
+	rm -rf codex-rs
+}
+
+# Tests require network access and OpenAI API keys (unavailable in the build chroot).
+make_check=no
+
+post_install() {
+	# Apache-2.0 license is fetched with the source archive; ship it as a doc
+	# (xlint forbids vlicense for Apache-family licenses).
+	vdoc LICENSE
+}
