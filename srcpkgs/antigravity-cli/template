@@ -6,7 +6,7 @@
 # committed in files/ because that page is a UA-dependent/JS-rendered page
 # with no stable checksum (it is fetched differently by every user agent).
 pkgname=antigravity-cli
-version=1.2.16
+version=1.2.17
 revision=1
 archs="x86_64"
 build_style=fetch
@@ -18,7 +18,7 @@ homepage="https://github.com/google-antigravity/antigravity-cli"
 changelog="https://github.com/google-antigravity/antigravity-cli/releases"
 
 distfiles="https://github.com/google-antigravity/antigravity-cli/releases/download/${version}/agy_cli_linux_x64.tar.gz"
-checksum="d4247430e04cebdbe1ca93d9ccb483cd2f3daeb4cdb0ace5a71cd130e0bdab84"
+checksum=b0ed8a7c375b5af3af973f08a601e41aebb38bac7e80b922ab54d973a4275493
 
 # Dynamic glibc binary; already stripped.
 nostrip=yes
